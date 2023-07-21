@@ -48,7 +48,7 @@ async def create_student(student: Student):
 
 @app.get("/skills")
 async def students():
-    students = await async_engine.find(Student)
+    students = await async_engine.find(Skill)
     return students
 
 @app.get("/students")
