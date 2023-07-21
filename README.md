@@ -4,17 +4,20 @@ This example show how to deal with Model Reference with ODMantic.
 
 The goal here is to get full Reference datas when requesting the parent Model
 
-## Install
+## Install & run
 
 ```bash
+# Install
 docker compose up -d
-# old style : docker-compose up -d
 ```
 
-App is accessible at http://localhost:9800
+* `FastAPI` is accessible at http://localhost:9800
+* `DbGate` is accessible at http://localhost:9801 to navigate into Mongo Database
 
-Use `DbGate` at http://localhost:9801 to navigate into Mongo Database
-
+```bash
+# Run tests (only Python3 is required)
+python3 tests/test.py
+```
 
 ## What ODMantic do
 
