@@ -1,0 +1,70 @@
+version: "3.4"
+
+services:
+  #### Redis ####
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile_FastAPI
+    image: tests/db-compare
+    container_name: odmantic-relation-example-fastapi
+    restart: "unless-stopped"
+    environment:
+      APP_NAME: ODMantic relation example
+      ENVIRONMENT: development
+      CORS_ALLOW_ORIGIN: '*'
+      MONGO_URL: mongodb://odmantic-relation-example-mongo:27017/
+      MONGO_DB: odmantic_example
+    ports:
+      - 9800:80
+    command: uvicorn main:app --host 0.0.0.0 --port 80 --reload
+    depends_on:
+      - mongo
+    volumes:
+      - ./src:/app:ro
+    networks:
+      - local-network
+
+  mongo:
+    image: mongo:6
+    container_name: odmantic-relation-example-mongo
+    restart: "unless-stopped"
+    expose:
+      - 27017
+    command: mongod --bind_ip=0.0.0.0 --dbpath /data/db
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - local-network
+
+  dbgate:
+    image: dbgate/dbgate:5.2.6-alpine
+    container_name: odmantic-relation-example-dbgate
+    restart: "unless-stopped"
+    ports:
+      - 9801:3000
+    volumes:
+      - dbgate-data:/root/.dbgate
+    environment:
+      CONNECTIONS: con1
+      # con1 definition
+      LABEL_con1: MongoDB
+      URL_con1: mongodb://odmantic-relation-example-mongo:27017
+      ENGINE_con1: mongo@dbgate-plugin-mongo
+    networks:
+      - local-network
+
+
+volumes:
+  mongo-data:
+    name: odmantic-relation-example-mongo-data
+  dbgate-data:
+    name: odmantic-relation-example-dbgate-data
+
+networks:
+  local-network:
+    name: odmantic-relation-example-network
+    driver: bridge
+
+
