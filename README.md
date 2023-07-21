@@ -13,12 +13,12 @@ docker compose up -d
 
 App is accessible at http://localhost:9800
 
-Use `DbGate` at http://localhost:9801 to navigate Mongo Database
+Use `DbGate` at http://localhost:9801 to navigate into Mongo Database
 
 
 ## What ODMantic do
 
-**1 - Sub Model**
+### 1 - Sub Model
 
 ```python
 class Skill(Model):
@@ -29,7 +29,7 @@ class Student(Model):
 ```
 
 NoSQL result in Database :
-```json
+```MQL5
 {
     _id: Object { $oid: "64baa62d315ab7b15551d0c4" }
     fullname: "John Doe"
@@ -82,7 +82,7 @@ JSON result through request :
 
 ODMantic Documentation : https://art049.github.io/odmantic/modeling/#one-to-many
 
-**2 - Model Reference**
+### 2 - Model Reference
 
 ```python
 class Skill(Model):
@@ -93,7 +93,7 @@ class Student(Model):
 ```
 
 NoSQL result in Database :
-```json
+```MQL5
 {
     _id: Object { $oid: "64ba99d15728708bb9aa2ba8"},
     fullname: "John Doe",
@@ -132,7 +132,7 @@ We want NoSQL both result of `1 - Sub Model` and JSON result of `2 - Model Refer
 That what this example solve ✅
 
 NoSQL result in Database :
-```json
+```MQL5
 {
     _id: Object { $oid: "64ba99d15728708bb9aa2ba8"},
     fullname: "John Doe",
